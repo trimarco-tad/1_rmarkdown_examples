@@ -1,11 +1,12 @@
 ---
 title: "Discharge Data Example"
-author: "Matthew Ross"
-date: "1/24/2022"
+author: "Matthew Ross - Assignment by Tad Trimarco"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
     toc: true
     toc_float: true
+    toc_depth: 3
 ---
 
 ```{r setup, include=FALSE}
@@ -119,8 +120,21 @@ todays date, not just a static date you enter.
 
 ## DyGraph example. 
 
+```{r}
+dygraph(q_xts) %>%
+  dyAxis("y", label = "Discharge (cfs)") %>%
+  dyOptions(drawPoints =  TRUE, pointSize = 2)
+```
+
+
 
 ## Poudre Paragraph
 
 
+The Poudre River in Fort Collins, CO is a vital component of Northern Colorado's economy and ecosystem functioning.
 
+**Economic Impact**
+The Cache la Poudre River provides clean, accessible water to businesses and residents in Northern Colorado. The high quality of the water attracts a number of stakeholders that rely on clean water, particularly breweries. While only moderately size, Fort Collins has over [twenty breweries](https://www.coloradobrewerylist.com/brewery_city/fort-collins/). This high density of breweries stimulates the economy of Northern Colorado and contributes to the culture of Fort Collins as a college town. The Poudre River has also long been an important source of water for Colorado agriculture and is relied upon by farmers across the region. [Numerous studies and analyses](https://libguides.colostate.edu/poudreriver/ag) have been conducted by Colorado State University, the Colorado State government, and other invested stakeholders on the economic impact of both the *quantity* **and** *quality* of the Poudre River.
+
+**Ecosystem Impact**
+The Poudre River, and the canyon it cuts through, provides key ecosystems for a [wide variety of Colorado wildlife](https://poudretrail.org/habitat-wildlife/). The high quality water and variable flow conditions allow for many organisms to carve out a niche in the diverse ecosystem. However, the increasing frequency of wildfires in the area threatens water quality and endangers wildlife communities. The state and federal government has since allocated significant funds to projects designed to restore and repair fire-damaged areas in an attempt to preserve water quality for both economic and ecosystem benefit.
