@@ -17,11 +17,137 @@ library(revealjs)
 
 <section data-markdown>
   <textarea data-template>
-    ## Slide 1
-    A paragraph with some text and a [link](http://hakim.se).
-    ---
-    ## Slide 2
-    ---
-    ## Slide 3
+
+# Discharge Data Example
+The original report can be found [here](https://trimarco-tad.github.io/1_rmarkdown_examples/).
+    
+# Methods
+
+The Poudre River at Lincoln Bridge is:
+
+  - Downstream of only a little bit of urban stormwater
+
+  - Near Odell Brewing CO
+  
+  - Near an open space area and the Poudre River Trail
+  
+  - **Downstream of many agricultral diversions**
+
+---
+
+## SiteDescription
+
+![](https://waterdata.usgs.gov/nwisweb/local/state/co/text/pics/06752260big.jpg)
+
+---
+## Data Acquisition and Plotting tests
+
+## Data Download
+
+
+```{r downloader}
+
+q <- readNWISdv(siteNumbers = '06752260',
+                parameterCd = '00060',
+                startDate = '2017-01-01',
+                endDate = '2022-01-01') %>%
+  rename(q = 'X_00060_00003')
+
+
+```
+
+
+
+## Static Data Plotter
+
+
+```{r, warning = FALSE, fig.width = 8, fig.height = 5}
+
+ggplot(q, aes(x = Date, y = q)) + 
+  geom_line() + 
+  ylab('Q (cfs)') + 
+  ggtitle('Discharge in the Poudre River, Fort Collins')
+
+```
+
+---
+
+## Interactive Data Plotter
+
+
+```{r}
+
+q_xts <- xts(q$q, order.by = q$Date)
+
+
+dygraph(q_xts) %>%
+  dyAxis("y", label = "Discharge (cfs)") 
+```
+
+---
+
+# Assignment. 
+
+
+This assignment will be primarily about demonstrating some expertice in using
+RMarkdown, since we will be using Rmds as the primary form of homework and 
+assignments. With that in mind, your assignment for this homework is to:
+
+
+1) Fork the example repository into your personal GitHub
+
+2) Create an RStudio project from your Personal clone of the Repo. 
+
+3) Create a table of contents that is floating, but displays three levels of
+headers instead of two (by editing the content at the beginning of the document)
+
+4) Make a version of the `dygraph` with points and lines by using rstudio's
+dygraph [guide](https://rstudio.github.io/dygraphs/)
+
+5) Writing a paragraph on the Poudre river with at least three hyperlinks,
+**two bolded sections**, and one *italicized phrase*. The content of this paragraph
+is not vital, but try to at least make it true and interesting, and, of course,
+don't plagiarize. 
+
+6) Knit that document, and then git commit and push to your personal GitHub.
+
+7) Use the GitHub -> Settings -> Pages tab to create a website of your report.
+
+8) Bonus, make the timestamp in the header dynamic. As in it only adds
+todays date, not just a static date you enter. 
+
+9) Bonus, create an "index_talk.Rmd" version of your document using the
+`revealjs` package. Add link to your original report-style document. 
+
+
+---
+
+## DyGraph example. 
+
+```{r}
+dygraph(q_xts) %>%
+  dyAxis("y", label = "Discharge (cfs)") %>%
+  dyOptions(drawPoints =  TRUE, pointSize = 2)
+```
+
+---
+
+## Poudre Paragraph
+
+---
+
+The Poudre River in Fort Collins, CO is a vital component of Northern Colorado's economy and ecosystem functioning.
+
+**Economic Impact**
+The Cache la Poudre River provides clean, accessible water to businesses and residents in Northern Colorado. The high quality of the water attracts a number of stakeholders that rely on clean water, particularly breweries. While only moderately size, Fort Collins has over [twenty breweries](https://www.coloradobrewerylist.com/brewery_city/fort-collins/). This high density of breweries stimulates the economy of Northern Colorado and contributes to the culture of Fort Collins as a college town. The Poudre River has also long been an important source of water for Colorado agriculture and is relied upon by farmers across the region. [Numerous studies and analyses](https://libguides.colostate.edu/poudreriver/ag) have been conducted by Colorado State University, the Colorado State government, and other invested stakeholders on the economic impact of both the *quantity* **and** *quality* of the Poudre River.
+
+---
+
+**Ecosystem Impact**
+The Poudre River, and the canyon it cuts through, provides key ecosystems for a [wide variety of Colorado wildlife](https://poudretrail.org/habitat-wildlife/). The high quality water and variable flow conditions allow for many organisms to carve out a niche in the diverse ecosystem. However, the increasing frequency of wildfires in the area threatens water quality and endangers wildlife communities. The state and federal government has since allocated significant funds to projects designed to restore and repair fire-damaged areas in an attempt to preserve water quality for both economic and ecosystem benefit.
+
   </textarea>
 </section>
+
+
+
