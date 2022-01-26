@@ -1,8 +1,23 @@
 ---
 title: "Discharge Data Example"
-author: "Tad Trimarco"
-date: "1/26/2022"
-output: html_document
+author: "Tad Trimarco and Matt Ross"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+      revealjs::revealjs_presentation:
+        self_contained: false
+        center: true
+        incremental: true
+        theme: solarized
+        transition: zoom
+        css: style.css
+        reveal_plugins: ["chalkboard"]
+        reveal_options:
+          slideNumber: true
+          previewLinks: true
+          margin: 0.00
+          width: 1536
+          height: 864
+        
 ---
 
 ```{r setup, include=FALSE}
@@ -15,8 +30,7 @@ library(xts)
 library(revealjs)
 ```
 
-<section data-markdown>
-  <textarea data-template>
+
 
 # Discharge Data Example
 The original report can be found [here](https://trimarco-tad.github.io/1_rmarkdown_examples/).
@@ -35,14 +49,14 @@ The Poudre River at Lincoln Bridge is:
 
 ---
 
-## SiteDescription
+# Site Description
 
 ![](https://waterdata.usgs.gov/nwisweb/local/state/co/text/pics/06752260big.jpg)
 
 ---
-## Data Acquisition and Plotting tests
+# Data Acquisition and Plotting tests
 
-## Data Download
+# Data Download
 
 
 ```{r downloader}
@@ -58,7 +72,7 @@ q <- readNWISdv(siteNumbers = '06752260',
 
 
 
-## Static Data Plotter
+# Static Data Plotter
 
 
 ```{r, warning = FALSE, fig.width = 8, fig.height = 5}
@@ -72,13 +86,10 @@ ggplot(q, aes(x = Date, y = q)) +
 
 ---
 
-## Interactive Data Plotter
-
+# Interactive Data Plotter
 
 ```{r}
-
 q_xts <- xts(q$q, order.by = q$Date)
-
 
 dygraph(q_xts) %>%
   dyAxis("y", label = "Discharge (cfs)") 
@@ -86,43 +97,8 @@ dygraph(q_xts) %>%
 
 ---
 
-# Assignment. 
 
-
-This assignment will be primarily about demonstrating some expertice in using
-RMarkdown, since we will be using Rmds as the primary form of homework and 
-assignments. With that in mind, your assignment for this homework is to:
-
-
-1) Fork the example repository into your personal GitHub
-
-2) Create an RStudio project from your Personal clone of the Repo. 
-
-3) Create a table of contents that is floating, but displays three levels of
-headers instead of two (by editing the content at the beginning of the document)
-
-4) Make a version of the `dygraph` with points and lines by using rstudio's
-dygraph [guide](https://rstudio.github.io/dygraphs/)
-
-5) Writing a paragraph on the Poudre river with at least three hyperlinks,
-**two bolded sections**, and one *italicized phrase*. The content of this paragraph
-is not vital, but try to at least make it true and interesting, and, of course,
-don't plagiarize. 
-
-6) Knit that document, and then git commit and push to your personal GitHub.
-
-7) Use the GitHub -> Settings -> Pages tab to create a website of your report.
-
-8) Bonus, make the timestamp in the header dynamic. As in it only adds
-todays date, not just a static date you enter. 
-
-9) Bonus, create an "index_talk.Rmd" version of your document using the
-`revealjs` package. Add link to your original report-style document. 
-
-
----
-
-## DyGraph example. 
+# DyGraph example. 
 
 ```{r}
 dygraph(q_xts) %>%
@@ -132,7 +108,7 @@ dygraph(q_xts) %>%
 
 ---
 
-## Poudre Paragraph
+# Poudre Paragraph
 
 ---
 
@@ -146,8 +122,7 @@ The Cache la Poudre River provides clean, accessible water to businesses and res
 **Ecosystem Impact**
 The Poudre River, and the canyon it cuts through, provides key ecosystems for a [wide variety of Colorado wildlife](https://poudretrail.org/habitat-wildlife/). The high quality water and variable flow conditions allow for many organisms to carve out a niche in the diverse ecosystem. However, the increasing frequency of wildfires in the area threatens water quality and endangers wildlife communities. The state and federal government has since allocated significant funds to projects designed to restore and repair fire-damaged areas in an attempt to preserve water quality for both economic and ecosystem benefit.
 
-  </textarea>
-</section>
+
 
 
 
